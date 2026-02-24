@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITUN PREMIUM | Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700&display=swap');
+        
+        body { margin: 0; font-family: 'Cairo', sans-serif; background: #e0e5ec; color: #2d3436; }
+
+        /* الاسم المشع الفاخر */
+        .brand-glow {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            letter-spacing: 6px;
+            color: #fff;
+            text-shadow: 0 0 10px #007aff, 0 0 20px #007aff;
+            text-transform: uppercase;
+        }
+
+        /* خلفية الواجهة (الغرفة) */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), 
+                        url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80') center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+
+        /* زجاج كريستالي (Frosted Glass) */
+        .glass {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+
+        /* السلة والقائمة الجانبية */
+        .side-panel {
+            position: fixed; top: 0; width: 340px; height: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(40px);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #side-menu { right: -100%; }
+        #side-menu.active { transform: translateX(-100%); }
+        #cart-panel { left: -100%; }
+        #cart-panel.active { transform: translateX(100%); }
+
+        .float-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<nav class="fixed top-0 w-full z-[100] glass p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex gap-4">
+            <button onclick="toggleMenu()"><i data-lucide="menu"></i></button>
+            <button onclick="toggleCart()" class="relative">
+                <i data-lucide="shopping-bag"></i>
+                <span id="badge" class="absolute -top-2 -right-2 bg-pink-500 text-white text-[9px] px-2 py-0.5 rounded-full">0</span>
+            </button>
+        </div>
+        
+        <div class="brand-glow">DIGITUN</div>
+
+        <button onclick="toggleLangs()"><i data-lucide="globe"></i></button>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1 class="text-6xl font-black text-gray-800 mb-6 drop-shadow-md">UNIVERS <span style="color:#007aff">PREMIUM</span></h1>
+    <div class="w-full max-w-lg px-6 relative">
+        <input type="text" placeholder="ماذا تبحث اليوم؟" class="w-full glass rounded-2xl py-5 px-14 outline-none focus:ring-2 focus:ring-blue-400 text-lg">
+        <i data-lucide="search" class="absolute left-10 top-5 text-gray-400"></i>
+    </div>
+</section>
+
+<main class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="glass p-6 rounded-[45px] transition-all hover:-translate-y-3">
+            <div class="relative mb-6">
+                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" class="rounded-[35px] w-full h-80 object-cover">
+                <button class="absolute top-4 left-4 bg-white/90 p-3 rounded-full text-green-600 shadow-xl"><i data-lucide="message-circle"></i></button>
+            </div>
+            <h3 class="font-black text-xl mb-2">منتج كريستالي فاخر</h3>
+            <p class="text-[#007aff] font-black text-2xl mb-6">110 DT</p>
+            <button onclick="add()" class="w-full bg-[#007aff] text-white py-5 rounded-2xl font-bold shadow-lg shadow-blue-100">أضف للسلة</button>
+        </div>
+    </div>
+</main>
+
+<div id="side-menu" class="side-panel p-8">
+    <button onclick="toggleMenu()" class="mb-10"><i data-lucide="x"></i></button>
+    <h2 class="text-2xl font-black mb-8 border-b pb-4">الأقسام</h2>
+    <ul class="space-y-6 font-bold text-gray-600">
+        <li class="hover:text-blue-600 flex gap-3"><i data-lucide="home"></i> منزل</li>
+        <li class="hover:text-blue-600 flex gap-3"><i data-lucide="leaf"></i> حديقة</li>
+        <li class="hover:text-blue-600 flex gap-3"><i data-lucide="tent"></i> تخييم</li>
+        <li class="hover:text-blue-600 flex gap-3"><i data-lucide="user"></i> نساء</li>
+        <li class="hover:text-blue-600 flex gap-3"><i data-lucide="baby"></i> أطفال</li>
+        <li class="hover:text-blue-600 flex gap-3"><i data-lucide="users"></i> رجال</li>
+        <li class="hover:text-blue-600 flex gap-3"><i data-lucide="sparkles"></i> زينة</li>
+    </ul>
+</div>
+
+<div id="cart-panel" class="side-panel p-8 flex flex-col">
+    <button onclick="toggleCart()" class="self-end mb-6"><i data-lucide="x"></i></button>
+    <h2 class="text-2xl font-black mb-8 border-b pb-4">طلبك الجديد</h2>
+    <div id="items" class="flex-1 text-gray-400 text-center">السلة فارغة</div>
+    
+    <div class="glass p-4 rounded-2xl my-6 space-y-3">
+        <input type="text" placeholder="الاسم الكامل" class="w-full p-3 rounded-xl border text-sm outline-none focus:border-blue-500">
+        <input type="text" placeholder="رقم الهاتف" class="w-full p-3 rounded-xl border text-sm outline-none focus:border-blue-500">
+        <textarea placeholder="العنوان" class="w-full p-3 rounded-xl border text-sm h-20 outline-none focus:border-blue-500"></textarea>
+    </div>
+
+    <div class="space-y-4">
+        <button class="w-full bg-[#007aff] text-white py-4 rounded-xl font-black">إتمام الشراء</button>
+        <button class="
